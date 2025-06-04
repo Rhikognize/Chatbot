@@ -2,6 +2,7 @@ import random
 from transformations import transform_text, transform_age, transform_interest
 from excel import save_to_excel, answers
 
+
 questions = [
     "Bot: Bună! Cum te cheamă?",
     "Bot: Câți ani ai?",
@@ -22,11 +23,15 @@ def greet_user(name):
 
 
 def main():
+
     end = False
+
     while not end:
+
         answers.clear()
         print(questions[0])
         answers.append(questions[0])
+
         try:
             name = input("Tu: ")
             if not name.strip():
@@ -34,9 +39,11 @@ def main():
         except ValueError as e:
             print(f"Bot: {e}")
             continue
+
         answers.append(f"Tu: {name}")
         print(questions[1])
         answers.append(questions[1])
+
         try:
             age = int(input("Tu: "))
             if age < 0:
@@ -45,10 +52,12 @@ def main():
         except ValueError as e:
             print(f"Bot: {e}")
             continue
+
         answers.append(f"Tu: {age}")
         new_age = transform_age(age)
         print(questions[2])
         answers.append(questions[2])
+
         try:
             interest = input("Tu: ")
             if not interest.strip():
@@ -56,14 +65,19 @@ def main():
         except ValueError as e:
             print(f"Bot: {e}")
             continue
+
         answers.append(f"Tu: {interest}")
         new_interest = transform_interest(interest)
+
         greeting = greet_user(name)
         response = f"Bot: {greeting} Este minunat că {new_age} {new_interest}!"
         answers.append(response)
         print(response)
+
         while True:
+
             print("Bot: Vrei să continui conversația? (da/nu)")
+
             try:
                 end_input = input("Tu: ").strip().lower()
                 if end_input not in ["da", "nu"]:
@@ -75,6 +89,7 @@ def main():
             except ValueError as e:
                 print(f"Bot: {e}")
                 continue
+
         save_to_excel()
 
 
